@@ -1,0 +1,1 @@
+import {CashManager} from '@/components/cash-manager';import{createClient}from'@/lib/supabase/server';export default async function Page(){const s=await createClient();const{data,error}=await s.from('cash_sessions').select('*').order('opened_at',{ascending:false}).limit(30);if(error)return <div className="error">{error.message}</div>;return <CashManager initial={data||[]}/>;}
