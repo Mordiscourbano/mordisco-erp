@@ -1,2 +1,0 @@
-import {currency,ingredients} from "@/lib/data";
-export default function Page(){return <><h1 className="page-title">Ingredientes</h1><p className="page-subtitle">{ingredients.length} insumos iniciales cargados.</p><section className="panel"><div className="table-wrap"><table><thead><tr><th>Ingrediente</th><th>Unidad</th><th>Precio</th><th>Costo base</th></tr></thead><tbody>{ingredients.map(i=><tr key={i.name}><td>{i.name}</td><td>{i.unit}</td><td>{currency(i.price)}</td><td>{currency(i.base)}</td></tr>)}</tbody></table></div></section></>}

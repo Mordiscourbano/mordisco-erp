@@ -1,1 +1,0 @@
-export default function Page(){return <><h1 className="page-title">Configuración</h1><p className="page-subtitle">Costos fijos, comisiones y objetivos.</p><section className="panel"><div className="notice">Este módulo queda preparado para el próximo sprint.</div></section></>}
