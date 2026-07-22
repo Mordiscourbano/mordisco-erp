@@ -1,12 +1,19 @@
-# Mordisco ERP — base limpia v0.3
+# Mordisco ERP — Sprint 2: recetas y costos
 
-Proyecto validado con `npm run build`.
+## Antes de subir el código
 
-## Variables de entorno
+1. En Supabase → SQL Editor ejecutá `supabase/sprint-2-recipes.sql`.
+2. Verificá que aparezcan las tablas `recipes` y `recipe_items`.
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+## Subida a GitHub
 
-## Reemplazo del repositorio
+Subí el contenido de este paquete a la rama `sprint-2-recetas`, reemplazando los archivos que coincidan.
 
-Borrá el contenido anterior del repositorio y subí todos los archivos de esta carpeta. No subas `.env.local`.
+## Qué agrega
+
+- Navegación a Recetas y Costos.
+- Recetas editables.
+- Cálculo automático según precio y rendimiento de ingredientes.
+- Margen actual y precio sugerido al 65%.
+- Recetas precargadas para milanesas, hamburguesas, tostados y ensaladas.
+- Ingredientes con precio desconocido cargados en $0 y marcados para completar.
