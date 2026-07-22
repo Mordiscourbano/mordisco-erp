@@ -1,1 +1,0 @@
-insert into public.profiles(id,business_id,full_name,role) values('TU_USER_UUID'::uuid,'3d76a7ed-5220-4a16-abe2-c97e6afa87e1'::uuid,'Marcos','owner') on conflict(id) do update set business_id=excluded.business_id,full_name=excluded.full_name,role=excluded.role;
