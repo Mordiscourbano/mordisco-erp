@@ -1,9 +1,12 @@
-# Sprint 4 — Punto de Venta y Caja
+# Mordisco ERP — Sprint 5: Dashboard Ejecutivo
 
-1. Crear rama `sprint-4-pos` desde `main`.
-2. Ejecutar `supabase/sprint-4-pos.sql`.
+Incluye facturación, pedidos, ticket promedio, ganancia y margen estimados, medios de pago, ventas por día y hora, ranking de productos e inventario crítico.
+
+## Instalación
+1. Crear rama `sprint-5-dashboard` desde `main`.
+2. Ejecutar `supabase/sprint-5-dashboard.sql`.
 3. Subir `src`, `supabase` y `README.md`.
-4. Copiar `src/app/sprint-4-additions.css` al final de `src/app/globals.css` y borrar el archivo auxiliar.
-5. Probar `/pos`, `/pedidos` y `/caja` en Preview.
+4. Copiar `src/app/sprint-5-additions.css` al final de `src/app/globals.css` y luego borrar el archivo auxiliar.
+5. Esperar el Preview de Vercel y probar `/`.
 
-Prueba: abrir caja, vender dos productos, verificar pedido, movimientos de stock y cerrar caja.
+La rentabilidad todavía es estimada y no descuenta costos fijos, impuestos ni comisiones.
