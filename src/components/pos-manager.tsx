@@ -1,4 +1,4 @@
-\'use client';
+'use client';
 import {useMemo,useState} from 'react'; import {createClient} from '@/lib/supabase/client';
 type P={id:string;name:string;category:string;current_price:number}; type C=P&{quantity:number};
 const money=(v:number)=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(v||0);
