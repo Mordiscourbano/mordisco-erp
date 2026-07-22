@@ -1,19 +1,9 @@
-# Mordisco ERP — Sprint 2: recetas y costos
+# Sprint 3 — Stock Inteligente
 
-## Antes de subir el código
+1. Crear rama `sprint-3-stock` desde main.
+2. Ejecutar `supabase/sprint-3-stock.sql`.
+3. Subir estos archivos a la rama.
+4. Copiar el contenido de `src/app/sprint-3-additions.css` al final de `src/app/globals.css`.
+5. Probar `/inventario`, `/ventas` y `/movimientos` en Preview.
 
-1. En Supabase → SQL Editor ejecutá `supabase/sprint-2-recipes.sql`.
-2. Verificá que aparezcan las tablas `recipes` y `recipe_items`.
-
-## Subida a GitHub
-
-Subí el contenido de este paquete a la rama `sprint-2-recetas`, reemplazando los archivos que coincidan.
-
-## Qué agrega
-
-- Navegación a Recetas y Costos.
-- Recetas editables.
-- Cálculo automático según precio y rendimiento de ingredientes.
-- Margen actual y precio sugerido al 65%.
-- Recetas precargadas para milanesas, hamburguesas, tostados y ensaladas.
-- Ingredientes con precio desconocido cargados en $0 y marcados para completar.
+Prueba: cargar compra de cheddar, definir mínimos, registrar venta de un producto con cheddar y verificar el descuento.
