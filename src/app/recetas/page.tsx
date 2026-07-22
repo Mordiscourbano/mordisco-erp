@@ -1,0 +1,1 @@
+export default function Page(){return <><h1 className="page-title">Recetas</h1><p className="page-subtitle">Ficha técnica y composición de cada producto.</p><section className="panel"><div className="notice">Este módulo queda preparado para el próximo sprint.</div></section></>}

@@ -1,0 +1,1 @@
+export default function Page(){return <><h1 className="page-title">Ventas</h1><p className="page-subtitle">Registro diario de facturación y comandas.</p><section className="panel"><div className="notice">Este módulo queda preparado para el próximo sprint.</div></section></>}
