@@ -1,0 +1,65 @@
+
+.crm-kpis {
+  margin-bottom: 18px;
+}
+.crm-subtitle {
+  display: block;
+  margin-top: 4px;
+  color: #6b7280;
+}
+.crm-segment {
+  display: inline-flex;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.segment-vip {
+  background: #fef3c7;
+  color: #92400e;
+}
+.segment-frecuente {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.segment-activo {
+  background: #d1fae5;
+  color: #047857;
+}
+.segment-nuevo {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+.crm-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 25px;
+}
+.loyalty-grid {
+  display: grid;
+  gap: 10px;
+}
+.loyalty-adjuster {
+  display: grid;
+  grid-template-columns: minmax(170px, 1.2fr) 120px minmax(180px, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+.loyalty-adjuster input {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+@media (max-width: 760px) {
+  .loyalty-adjuster {
+    grid-template-columns: 1fr;
+  }
+  .crm-checkbox {
+    padding-top: 0;
+  }
+}
