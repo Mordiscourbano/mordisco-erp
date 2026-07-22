@@ -1,0 +1,8 @@
+'use client';
+import { FormEvent, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+export default function Page(){
+  const [email,setEmail]=useState(''); const [password,setPassword]=useState(''); const [msg,setMsg]=useState('');
+  async function login(e:FormEvent){e.preventDefault();const{error}=await createClient().auth.signInWithPassword({email,password});if(error){setMsg(error.message);return}location.href='/'}
+  return <div className="login-wrap"><form className="login-card" onSubmit={login}><h1>Mordisco ERP</h1>{msg&&<div className="error">{msg}</div>}<div className="field"><label>Email</label><input type="email" value={email} onChange={e=>setEmail(e.target.value)} required/></div><div className="field"><label>Contraseña</label><input type="password" value={password} onChange={e=>setPassword(e.target.value)} required/></div><button className="btn">Ingresar</button></form></div>;
+}
