@@ -11,12 +11,12 @@ export default async function RedemptionsPage() {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("loyalty_redemptions")
-    .select(
-      "id,points_spent,discount_amount,status,created_at,customers(full_name),loyalty_rewards(name,reward_type),orders(order_number,total)"
-    )
-    .order("created_at", { ascending: false })
-    .limit(250);
+  .from("loyalty_redemptions")
+  .select(
+    "id,points_spent,discount_amount,status,created_at,customers(full_name),loyalty_rewards(name,reward_type),orders!loyalty_redemptions_order_id_fkey(order_number,total)"
+  )
+  .order("created_at", { ascending: false })
+  .limit(250);
 
   if (error) {
     return <div className="error">{error.message}</div>;
