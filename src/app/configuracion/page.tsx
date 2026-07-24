@@ -1,24 +1,14 @@
-export default function SettingsPage() {
-  return (
-    <>
-      <div className="toolbar">
-        <div>
-          <h1 className="page-title">Configuración</h1>
-          <p className="page-subtitle">Preferencias generales del sistema.</p>
-        </div>
-      </div>
-      <section className="panel">
-        <h2>Identidad del negocio</h2>
-        <div className="form-grid" style={{ marginTop: 16 }}>
-          <div className="field"><label>Nombre comercial</label><input defaultValue="Mordisco Urbano" disabled /></div>
-          <div className="field"><label>Sistema</label><input defaultValue="Mordisco ERP" disabled /></div>
-        </div>
-      </section>
-      <section className="grid kpis">
-        <article className="card"><span>Versión visual</span><strong>10.2</strong></article>
-        <article className="card"><span>Diseño</span><strong>Responsive</strong></article>
-        <article className="card"><span>Navegación</span><strong>Sidebar</strong></article>
-      </section>
-    </>
-  );
+import { BrandingSettingsForm } from "@/components/settings/branding-settings-form";
+import { createClient } from "@/lib/supabase/server";
+import type { BusinessSettings } from "@/lib/settings/types";
+
+export default async function SettingsPage() {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("business_settings").select("*").single();
+
+  if (error || !data) {
+    return <div className="error">{error?.message ?? "No se encontró la configuración del negocio."}</div>;
+  }
+
+  return <BrandingSettingsForm initialSettings={data as BusinessSettings} />;
 }
