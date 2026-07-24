@@ -1,65 +1,16 @@
-# Mordisco ERP — Sprint 10.1
+# Mordisco ERP — Sprint 10.2
 
-## Fidelización configurable y canjes en POS
+## Rediseño profesional y experiencia de usuario
 
-Incluye:
-
-- Regla editable de pesos por punto.
-- Compra mínima para acumular.
-- Configuración futura de vencimiento.
-- Catálogo de premios.
-- Producto gratis.
-- Descuento fijo.
-- Descuento porcentual.
-- Canje directamente desde el POS.
-- Validación segura de puntos.
-- Descuento automático del saldo.
-- Historial de canjes.
-- Los puntos nuevos se calculan sobre el total final después del canje.
-
-## Regla inicial
-
-```text
-$1.000 = 1 punto
-Sin vencimiento
-```
+Incluye barra lateral, menú móvil, navegación inferior, barra superior, sistema visual unificado, tablas/formularios más claros y mejoras responsive para POS y Cocina.
 
 ## Instalación
 
-1. Crear desde `main`:
+1. Crear desde `main` la rama `sprint-10-2-redesign`.
+2. Subir `src` y `README.md`.
+3. Commit: `Sprint 10.2: Rediseño profesional`.
+4. No requiere SQL.
+5. Probar `/`, `/pos`, `/cocina`, `/inventario`, `/crm`, `/fidelizacion`, `/inteligencia` y `/configuracion`.
+6. Probar también desde celular y tablet.
 
-```text
-sprint-10-1-loyalty
-```
-
-2. Ejecutar en Supabase:
-
-```text
-supabase/sprint-10-1-loyalty.sql
-```
-
-3. Subir:
-
-- `src`
-- `supabase`
-- `README.md`
-
-4. Commit:
-
-```text
-Sprint 10.1: Fidelización y Canjes
-```
-
-5. No hay que copiar CSS manualmente.
-
-## Prueba recomendada
-
-1. Abrir `/fidelizacion`.
-2. Crear premio “Papas chicas” por 50 puntos.
-3. Ajustar un cliente a más de 50 puntos desde CRM.
-4. Abrir `/pos`.
-5. Seleccionar al cliente.
-6. Elegir el premio.
-7. Registrar la venta.
-8. Revisar `/canjes`.
-9. Confirmar que los puntos bajaron y que el pedido muestra el descuento.
+No borres los CSS anteriores. `design-system.css` normaliza visualmente todo el ERP.
