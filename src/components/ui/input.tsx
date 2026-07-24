@@ -1,0 +1,2 @@
+import { InputHTMLAttributes } from "react";
+export function Input({label,hint,error,prefix,...props}:InputHTMLAttributes<HTMLInputElement>&{label?:string;hint?:string;error?:string;prefix?:string}){return <div className={`ui-field ${error?"ui-field-error":""}`}>{label&&<label>{label}</label>}<div className="ui-input-shell">{prefix&&<span>{prefix}</span>}<input className="ui-input" {...props}/></div>{(error||hint)&&<small>{error||hint}</small>}</div>}

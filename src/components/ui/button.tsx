@@ -1,0 +1,2 @@
+import { ButtonHTMLAttributes } from "react";
+export function Button({variant="primary",size="md",loading=false,className="",children,...props}:ButtonHTMLAttributes<HTMLButtonElement>&{variant?:"primary"|"secondary"|"danger"|"success"|"ghost";size?:"sm"|"md"|"lg";loading?:boolean}){return <button className={`ui-button ui-button-${variant} ui-button-${size} ${className}`} disabled={props.disabled||loading} {...props}>{loading?<><span className="ui-button-spinner"/>Procesando...</>:children}</button>}

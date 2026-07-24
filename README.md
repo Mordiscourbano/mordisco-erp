@@ -1,16 +1,15 @@
-# Mordisco ERP — Sprint 10.2
+# Mordisco ERP — Sprint 10.3.1
 
-## Rediseño profesional y experiencia de usuario
+Design System base.
 
-Incluye barra lateral, menú móvil, navegación inferior, barra superior, sistema visual unificado, tablas/formularios más claros y mejoras responsive para POS y Cocina.
+## Incluye
+Button, Card, Input, Select, Textarea, Badge, Alert, StatCard, EmptyState, Skeleton, Modal y Tabs.
 
 ## Instalación
-
-1. Crear desde `main` la rama `sprint-10-2-redesign`.
+1. Crear rama `sprint-10-3-design-system`.
 2. Subir `src` y `README.md`.
-3. Commit: `Sprint 10.2: Rediseño profesional`.
+3. Commit: `Sprint 10.3.1: Design System base`.
 4. No requiere SQL.
-5. Probar `/`, `/pos`, `/cocina`, `/inventario`, `/crm`, `/fidelizacion`, `/inteligencia` y `/configuracion`.
-6. Probar también desde celular y tablet.
+5. Probar `/ui`, `/`, `/pos`, `/cocina` y `/fidelizacion`.
 
-No borres los CSS anteriores. `design-system.css` normaliza visualmente todo el ERP.
+Esta entrega agrega la biblioteca visual sin modificar todavía la lógica de los módulos.
