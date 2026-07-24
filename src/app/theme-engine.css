@@ -1,0 +1,146 @@
+.brand-runtime {
+  min-height: 100vh;
+  font-family: var(--brand-font), Inter, ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--bg, #f4f5f7);
+  background-image: var(--brand-background-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.brand-runtime .sidebar {
+  background: var(--brand-sidebar);
+}
+
+.brand-runtime .brand-mark,
+.brand-runtime .sidebar-link.active {
+  background: var(--brand-primary);
+  color: var(--brand-secondary);
+}
+
+.brand-runtime .brand-mark {
+  overflow: hidden;
+}
+
+.brand-runtime .brand-mark img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #fff;
+}
+
+.brand-runtime .topbar-icon-button {
+  color: var(--brand-secondary);
+}
+
+.brand-runtime .ui-button-primary,
+.brand-runtime .btn:not(.secondary):not(.danger) {
+  border-color: var(--brand-primary);
+  background: var(--brand-primary);
+  color: var(--brand-secondary);
+}
+
+.brand-runtime a:focus-visible,
+.brand-runtime button:focus-visible,
+.brand-runtime input:focus-visible,
+.brand-runtime select:focus-visible,
+.brand-runtime textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand-accent) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.brand-runtime .topbar-branding {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-runtime .topbar-brand-logo {
+  width: 38px;
+  height: 38px;
+  display: block;
+  object-fit: contain;
+  border: 1px solid var(--border, #e4e7ec);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.brand-runtime.brand-theme-dark {
+  --bg: #111318;
+  --surface: #1b1e25;
+  --border: #30343d;
+  --text: #f5f7fa;
+  --muted: #a3aab8;
+  background-color: #111318;
+  color: var(--text);
+}
+
+.brand-runtime.brand-theme-dark .topbar,
+.brand-runtime.brand-theme-dark .ui-card,
+.brand-runtime.brand-theme-dark .panel,
+.brand-runtime.brand-theme-dark .card,
+.brand-runtime.brand-theme-dark .ui-stat-card,
+.brand-runtime.brand-theme-dark .ui-modal,
+.brand-runtime.brand-theme-dark .ui-drawer {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.brand-runtime.brand-theme-dark .topbar {
+  background: rgba(27, 30, 37, 0.94);
+}
+
+.brand-runtime.brand-theme-dark input,
+.brand-runtime.brand-theme-dark select,
+.brand-runtime.brand-theme-dark textarea,
+.brand-runtime.brand-theme-dark .ui-input-shell,
+.brand-runtime.brand-theme-dark .ui-select,
+.brand-runtime.brand-theme-dark .ui-textarea {
+  border-color: #3b404b;
+  background: #15181e;
+  color: var(--text);
+}
+
+.brand-runtime.brand-theme-dark table thead,
+.brand-runtime.brand-theme-dark .ui-table th {
+  background: #15181e;
+}
+
+.brand-runtime.brand-theme-dark .content-area {
+  background: rgba(17, 19, 24, 0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  .brand-runtime.brand-theme-auto {
+    --bg: #111318;
+    --surface: #1b1e25;
+    --border: #30343d;
+    --text: #f5f7fa;
+    --muted: #a3aab8;
+    background-color: #111318;
+    color: var(--text);
+  }
+
+  .brand-runtime.brand-theme-auto .topbar,
+  .brand-runtime.brand-theme-auto .ui-card,
+  .brand-runtime.brand-theme-auto .panel,
+  .brand-runtime.brand-theme-auto .card,
+  .brand-runtime.brand-theme-auto .ui-stat-card {
+    border-color: var(--border);
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .brand-runtime.brand-theme-auto .topbar {
+    background: rgba(27, 30, 37, 0.94);
+  }
+}
+
+@media (max-width: 820px) {
+  .brand-runtime .topbar-brand-logo {
+    width: 34px;
+    height: 34px;
+  }
+}

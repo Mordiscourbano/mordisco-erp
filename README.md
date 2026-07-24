@@ -1,13 +1,44 @@
-# Sprint 10.3.2B.2 — Subida de imágenes
+# Sprint 10.3.2B.3 — Theme Engine
 
-Incluye la base para subir logo, logo reducido, banner y fondo a Supabase Storage.
+## Incluye
 
-## Pasos
+- Nombre y eslogan dinámicos en sidebar y encabezado.
+- Logo principal y logo reducido aplicados al ERP.
+- Colores principal, secundario, sidebar y acento.
+- Tipografía seleccionada.
+- Tema claro, oscuro y automático.
+- Fondo personalizado.
+- Vista previa de Configuración corregida.
+- Fallback seguro cuando no hay sesión o configuración.
 
-1. Crear desde `main` la rama `sprint-10-3-2b-2-image-uploads`.
-2. Ejecutar en Supabase:
-   `supabase/migrations/20260724_branding_storage_policies.sql`
-3. Subir `src`, `supabase` y `README.md`.
-4. Commit: `Sprint 10.3.2B.2: Subida de imágenes`.
+## Instalación
 
-Los buckets deben existir: logos, backgrounds, banners, products y avatars.
+1. Fusionar primero la B.2.
+2. Crear desde `main`:
+
+```text
+sprint-10-3-2b-3-theme-engine
+```
+
+3. Subir:
+
+```text
+src
+README.md
+```
+
+4. Commit:
+
+```text
+Sprint 10.3.2B.3: Theme Engine
+```
+
+5. No requiere SQL.
+
+## Prueba
+
+1. Abrir `/configuracion`.
+2. Cambiar nombre, eslogan, colores, tipografía o tema.
+3. Guardar.
+4. Recargar cualquier pantalla.
+5. Confirmar que el sidebar y encabezado adoptan la identidad.
