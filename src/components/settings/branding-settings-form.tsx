@@ -6,7 +6,7 @@ import type { BusinessSettings, BusinessSettingsUpdate, MediaBucket, ThemeMode }
 import { removeSettingsImage, SettingsAssetField, uploadSettingsImage } from "@/lib/settings/media";
 import { Alert, Button, Card, CardContent, CardHeader, Input, PageHeader, Select, Textarea } from "@/components/ui";
 import { ImageUploadField } from "./image-upload-field";
-
+import { BrandColorEditor, type BrandColors } from "./brand-color-editor";
 type ImageKey = "logo" | "logoSmall" | "banner" | "background";
 type ImageUrls = Record<ImageKey, string | null>;
 
@@ -35,11 +35,24 @@ export function BrandingSettingsForm({
   const [uploading, setUploading] = useState<ImageKey | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{type:"success"|"danger";text:string}|null>(null);
-
+const currentColors: BrandColors = {
+  primary: settings.primary_color,
+  secondary: settings.secondary_color,
+  accent: settings.accent_color,
+  sidebar: settings.sidebar_color,
+};
   function update<K extends keyof BusinessSettings>(key: K, value: BusinessSettings[K]) {
     setSettings(current => ({ ...current, [key]: value }));
   }
-
+function updateColors(colors: BrandColors) {
+  setSettings(current => ({
+    ...current,
+    primary_color: colors.primary,
+    secondary_color: colors.secondary,
+    accent_color: colors.accent,
+    sidebar_color: colors.sidebar,
+  }));
+}
   async function uploadImage(key: ImageKey, file: File) {
     const config = images[key];
     setUploading(key);
@@ -179,6 +192,12 @@ export function BrandingSettingsForm({
                   <option>Inter</option><option>Roboto</option><option>Poppins</option><option>Montserrat</option>
                 </Select>
               </div>
+              <div style={{ marginTop: 24 }}>
+  <BrandColorEditor
+    value={currentColors}
+    onChange={updateColors}
+  />
+</div>
             </CardContent>
           </Card>
 
