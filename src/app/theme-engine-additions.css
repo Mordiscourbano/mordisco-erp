@@ -1,0 +1,20 @@
+
+.brand-runtime .ui-button-primary,
+.brand-runtime button.primary,
+.brand-runtime .btn-primary,
+.brand-runtime .sidebar-link.active,
+.brand-runtime .mobile-bottom-nav a.active{
+  border-color:var(--brand-primary);
+  background-color:var(--brand-primary);
+  color:var(--brand-secondary)
+}
+.brand-runtime input:focus,
+.brand-runtime select:focus,
+.brand-runtime textarea:focus,
+.brand-runtime .ui-input-shell:focus-within{
+  border-color:var(--brand-accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-accent) 18%,transparent)
+}
+.brand-runtime .progress-bar>span,
+.brand-runtime .chart-bar,
+.brand-runtime .sparkline-fill{background:var(--brand-primary)}
