@@ -164,7 +164,14 @@ export function BrandingSettingsForm({ initialSettings }: { initialSettings: Bus
           </Card>
 
           <div className="branding-mobile-save">
-            <Button type="submit" fullWidth loading={saving} size="lg">Guardar cambios</Button>
+       <Button
+  type="submit"
+  loading={saving}
+  size="lg"
+  style={{ width: "100%" }}
+>
+  Guardar cambios
+</Button>
           </div>
         </div>
 
