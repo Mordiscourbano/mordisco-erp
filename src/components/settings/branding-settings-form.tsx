@@ -1,46 +1,93 @@
 'use client';
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import type { BusinessSettings, BusinessSettingsUpdate, ThemeMode } from "@/lib/settings/types";
+import type { BusinessSettings, BusinessSettingsUpdate, MediaBucket, ThemeMode } from "@/lib/settings/types";
+import { removeSettingsImage, SettingsAssetField, uploadSettingsImage } from "@/lib/settings/media";
 import { Alert, Button, Card, CardContent, CardHeader, Input, PageHeader, Select, Textarea } from "@/components/ui";
+import { ImageUploadField } from "./image-upload-field";
 
-const FONT_OPTIONS = ["Inter", "Roboto", "Poppins", "Montserrat"];
+type ImageKey = "logo" | "logoSmall" | "banner" | "background";
+type ImageUrls = Record<ImageKey, string | null>;
 
-function ColorField({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
-  return (
-    <div className="branding-color-field">
-      <label>{label}</label>
-      <div className="branding-color-control">
-        <input type="color" value={value} onChange={(event) => onChange(event.target.value)} aria-label={label} />
-        <input value={value} onChange={(event) => onChange(event.target.value)} maxLength={7} pattern="^#[0-9A-Fa-f]{6}$" />
-      </div>
-    </div>
-  );
-}
+const images: Record<ImageKey, {
+  label: string;
+  description: string;
+  bucket: MediaBucket;
+  field: SettingsAssetField;
+  assetField: "logo_asset_id" | "logo_small_asset_id" | "banner_asset_id" | "background_asset_id";
+}> = {
+  logo: { label: "Logo principal", description: "PNG, JPG o WebP. Máximo 5 MB.", bucket: "logos", field: "logo_asset_id", assetField: "logo_asset_id" },
+  logoSmall: { label: "Logo reducido", description: "Imagen cuadrada para menú y futura app.", bucket: "logos", field: "logo_small_asset_id", assetField: "logo_small_asset_id" },
+  banner: { label: "Banner", description: "Imagen horizontal para portada y catálogo.", bucket: "banners", field: "banner_asset_id", assetField: "banner_asset_id" },
+  background: { label: "Fondo", description: "Fondo opcional para login y portadas.", bucket: "backgrounds", field: "background_asset_id", assetField: "background_asset_id" },
+};
 
-export function BrandingSettingsForm({ initialSettings }: { initialSettings: BusinessSettings }) {
+export function BrandingSettingsForm({
+  initialSettings,
+  initialImageUrls,
+}: {
+  initialSettings: BusinessSettings;
+  initialImageUrls: ImageUrls;
+}) {
   const [settings, setSettings] = useState(initialSettings);
+  const [imageUrls, setImageUrls] = useState(initialImageUrls);
+  const [uploading, setUploading] = useState<ImageKey | null>(null);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "danger"; text: string } | null>(null);
-
-  const previewStyle = useMemo(() => ({
-    "--preview-primary": settings.primary_color,
-    "--preview-secondary": settings.secondary_color,
-    "--preview-sidebar": settings.sidebar_color,
-    "--preview-accent": settings.accent_color,
-    "--preview-font": settings.font_family,
-  }) as React.CSSProperties, [settings]);
+  const [message, setMessage] = useState<{type:"success"|"danger";text:string}|null>(null);
 
   function update<K extends keyof BusinessSettings>(key: K, value: BusinessSettings[K]) {
-    setSettings((current) => ({ ...current, [key]: value }));
+    setSettings(current => ({ ...current, [key]: value }));
+  }
+
+  async function uploadImage(key: ImageKey, file: File) {
+    const config = images[key];
+    setUploading(key);
+    setMessage(null);
+    try {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      const { asset, signedUrl } = await uploadSettingsImage(supabase, {
+        businessId: settings.business_id,
+        bucket: config.bucket,
+        field: config.field,
+        file,
+        uploadedBy: user?.id ?? null,
+      });
+      setSettings(current => ({ ...current, [config.assetField]: asset.id }));
+      setImageUrls(current => ({ ...current, [key]: signedUrl }));
+      setMessage({ type: "success", text: `${config.label} actualizado.` });
+    } catch (error) {
+      setMessage({ type: "danger", text: error instanceof Error ? error.message : "No se pudo subir la imagen." });
+    } finally {
+      setUploading(null);
+    }
+  }
+
+  async function removeImage(key: ImageKey) {
+    const config = images[key];
+    setUploading(key);
+    setMessage(null);
+    try {
+      await removeSettingsImage(createClient(), {
+        businessId: settings.business_id,
+        field: config.field,
+        assetId: settings[config.assetField],
+      });
+      setSettings(current => ({ ...current, [config.assetField]: null }));
+      setImageUrls(current => ({ ...current, [key]: null }));
+      setMessage({ type: "success", text: `${config.label} quitado.` });
+    } catch (error) {
+      setMessage({ type: "danger", text: error instanceof Error ? error.message : "No se pudo quitar la imagen." });
+    } finally {
+      setUploading(null);
+    }
   }
 
   async function save(event: FormEvent) {
     event.preventDefault();
     setSaving(true);
     setMessage(null);
-
     const payload: BusinessSettingsUpdate = {
       business_name: settings.business_name.trim(),
       slogan: settings.slogan?.trim() || null,
@@ -59,23 +106,19 @@ export function BrandingSettingsForm({ initialSettings }: { initialSettings: Bus
       tiktok: settings.tiktok?.trim() || null,
       address: settings.address?.trim() || null,
     };
-
     const { data, error } = await createClient()
       .from("business_settings")
       .update(payload)
       .eq("business_id", settings.business_id)
       .select("*")
       .single();
-
     setSaving(false);
-
     if (error) {
       setMessage({ type: "danger", text: error.message });
       return;
     }
-
     setSettings(data as BusinessSettings);
-    setMessage({ type: "success", text: "La configuración se guardó correctamente." });
+    setMessage({ type: "success", text: "Configuración guardada." });
   }
 
   return (
@@ -91,111 +134,93 @@ export function BrandingSettingsForm({ initialSettings }: { initialSettings: Bus
       <form id="branding-settings-form" onSubmit={save} className="branding-settings-layout">
         <div className="branding-settings-main">
           <Card>
-            <CardHeader title="Identidad del negocio" description="Información principal que utilizarán el ERP, la tienda y las futuras aplicaciones." />
+            <CardHeader title="Identidad del negocio" />
             <CardContent>
               <div className="ui-form-grid">
-                <Input label="Nombre comercial" value={settings.business_name} onChange={(event) => update("business_name", event.target.value)} required />
-                <Input label="Eslogan" value={settings.slogan ?? ""} onChange={(event) => update("slogan", event.target.value)} placeholder="Hamburguesas que dejan huella" />
+                <Input label="Nombre comercial" value={settings.business_name} onChange={e => update("business_name", e.target.value)} required />
+                <Input label="Eslogan" value={settings.slogan ?? ""} onChange={e => update("slogan", e.target.value)} />
               </div>
               <div style={{ marginTop: 16 }}>
-                <Textarea label="Descripción" value={settings.description ?? ""} onChange={(event) => update("description", event.target.value)} placeholder="Contá brevemente qué hace especial a tu negocio..." maxLength={500} />
+                <Textarea label="Descripción" value={settings.description ?? ""} onChange={e => update("description", e.target.value)} maxLength={500} />
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader title="Imágenes de marca" description="La subida de archivos se habilitará en la siguiente entrega." />
+            <CardHeader title="Imágenes de marca" description="JPG, PNG o WebP. Máximo 5 MB." />
             <CardContent>
               <div className="branding-upload-grid">
-                {[
-                  ["Logo principal", "Se usará en el login y encabezados."],
-                  ["Logo reducido", "Se usará en el menú contraído y favicon."],
-                  ["Banner", "Portada para catálogo y comunicaciones."],
-                  ["Imagen de fondo", "Fondo opcional para login y portada."],
-                ].map(([title, description]) => (
-                  <div className="branding-upload-placeholder" key={title}>
-                    <div className="branding-upload-icon">＋</div>
-                    <strong>{title}</strong>
-                    <span>{description}</span>
-                    <Button type="button" variant="secondary" size="sm" disabled>Subir imagen</Button>
-                  </div>
+                {(Object.keys(images) as ImageKey[]).map(key => (
+                  <ImageUploadField
+                    key={key}
+                    label={images[key].label}
+                    description={images[key].description}
+                    previewUrl={imageUrls[key]}
+                    loading={uploading === key}
+                    disabled={uploading !== null}
+                    onSelect={file => uploadImage(key, file)}
+                    onRemove={() => removeImage(key)}
+                  />
                 ))}
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader title="Apariencia" description="Definí el tema, los colores y la tipografía del sistema." />
+            <CardHeader title="Apariencia" />
             <CardContent>
               <div className="ui-form-grid">
-                <Select label="Tema" value={settings.theme} onChange={(event) => update("theme", event.target.value as ThemeMode)}>
+                <Select label="Tema" value={settings.theme} onChange={e => update("theme", e.target.value as ThemeMode)}>
                   <option value="light">Claro</option>
                   <option value="dark">Oscuro</option>
                   <option value="auto">Automático</option>
                 </Select>
-                <Select label="Tipografía" value={settings.font_family} onChange={(event) => update("font_family", event.target.value)}>
-                  {FONT_OPTIONS.map((font) => <option value={font} key={font}>{font}</option>)}
+                <Select label="Tipografía" value={settings.font_family} onChange={e => update("font_family", e.target.value)}>
+                  <option>Inter</option><option>Roboto</option><option>Poppins</option><option>Montserrat</option>
                 </Select>
-              </div>
-              <div className="branding-colors-grid">
-                <ColorField label="Color principal" value={settings.primary_color} onChange={(value) => update("primary_color", value)} />
-                <ColorField label="Color secundario" value={settings.secondary_color} onChange={(value) => update("secondary_color", value)} />
-                <ColorField label="Color del menú" value={settings.sidebar_color} onChange={(value) => update("sidebar_color", value)} />
-                <ColorField label="Color de acento" value={settings.accent_color} onChange={(value) => update("accent_color", value)} />
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader title="Información pública" description="Datos que podrán reutilizarse en la tienda, WhatsApp y comunicaciones." />
+            <CardHeader title="Información pública" />
             <CardContent>
               <div className="ui-form-grid">
-                <Input label="WhatsApp" value={settings.whatsapp ?? ""} onChange={(event) => update("whatsapp", event.target.value)} placeholder="+54 9 11..." />
-                <Input label="Correo electrónico" type="email" value={settings.email ?? ""} onChange={(event) => update("email", event.target.value)} />
-                <Input label="Sitio web" type="url" value={settings.website ?? ""} onChange={(event) => update("website", event.target.value)} placeholder="https://mordiscourbano.com" />
-                <Input label="Instagram" value={settings.instagram ?? ""} onChange={(event) => update("instagram", event.target.value)} placeholder="@mordiscourbano" />
-                <Input label="Facebook" value={settings.facebook ?? ""} onChange={(event) => update("facebook", event.target.value)} />
-                <Input label="TikTok" value={settings.tiktok ?? ""} onChange={(event) => update("tiktok", event.target.value)} />
+                <Input label="WhatsApp" value={settings.whatsapp ?? ""} onChange={e => update("whatsapp", e.target.value)} />
+                <Input label="Correo electrónico" type="email" value={settings.email ?? ""} onChange={e => update("email", e.target.value)} />
+                <Input label="Sitio web" type="url" value={settings.website ?? ""} onChange={e => update("website", e.target.value)} />
+                <Input label="Instagram" value={settings.instagram ?? ""} onChange={e => update("instagram", e.target.value)} />
+                <Input label="Facebook" value={settings.facebook ?? ""} onChange={e => update("facebook", e.target.value)} />
+                <Input label="TikTok" value={settings.tiktok ?? ""} onChange={e => update("tiktok", e.target.value)} />
               </div>
               <div style={{ marginTop: 16 }}>
-                <Input label="Dirección" value={settings.address ?? ""} onChange={(event) => update("address", event.target.value)} />
+                <Input label="Dirección" value={settings.address ?? ""} onChange={e => update("address", e.target.value)} />
               </div>
             </CardContent>
           </Card>
 
           <div className="branding-mobile-save">
-       <Button
-  type="submit"
-  loading={saving}
-  size="lg"
-  style={{ width: "100%" }}
->
-  Guardar cambios
-</Button>
+            <Button type="submit" loading={saving} size="lg" style={{ width: "100%" }}>Guardar cambios</Button>
           </div>
         </div>
 
         <aside className="branding-preview-column">
           <div className="branding-preview-sticky">
             <span className="branding-preview-label">Vista previa</span>
-            <div className={`branding-preview branding-preview-${settings.theme}`} style={previewStyle}>
+            <div className={`branding-preview branding-preview-${settings.theme}`}>
               <div className="branding-preview-sidebar">
-                <div className="branding-preview-logo">{settings.business_name.split(" ").map((word) => word[0]).join("").slice(0, 2).toUpperCase()}</div>
-                <span /><span /><span /><span />
+                <div className="branding-preview-logo">
+                  {imageUrls.logoSmall || imageUrls.logo ? (
+                    <img src={imageUrls.logoSmall || imageUrls.logo || ""} alt="" />
+                  ) : settings.business_name.slice(0,2).toUpperCase()}
+                </div>
               </div>
               <div className="branding-preview-content">
-                <header>
-                  <div><strong>{settings.business_name}</strong><small>{settings.slogan || "Gestión gastronómica"}</small></div>
-                  <i />
-                </header>
-                <main>
-                  <div className="branding-preview-title" />
-                  <div className="branding-preview-kpis"><article /><article /><article /></div>
-                  <section />
-                </main>
+                <header><div><strong>{settings.business_name}</strong><small>{settings.slogan || "Gestión gastronómica"}</small></div></header>
+                {imageUrls.banner && <div className="branding-preview-banner" style={{ backgroundImage: `url("${imageUrls.banner}")` }} />}
+                <main><div className="branding-preview-kpis"><article/><article/><article/></div><section/></main>
               </div>
             </div>
-            <p className="branding-preview-help">Esta vista es orientativa. En la B.3 los colores se aplicarán dinámicamente a todo el ERP.</p>
           </div>
         </aside>
       </form>
