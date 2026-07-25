@@ -54,20 +54,48 @@ export function ImageUploadField({
         {shown ? <img src={shown} alt={label} /> : <span>＋</span>}
       </div>
       <div className="branding-image-copy">
-        <strong>{label}</strong>
-        <p>{description}</p>
-        <div className="branding-image-actions">
-          <input ref={inputRef} hidden type="file" accept="image/png,image/jpeg,image/webp" onChange={onChange} />
-          <Button type="button" size="sm" variant="secondary" loading={loading} disabled={disabled} onClick={() => inputRef.current?.click()}>
-            {shown ? "Reemplazar" : "Seleccionar imagen"}
-          </Button>
-          {shown && onRemove && (
-            <Button type="button" size="sm" variant="ghost" disabled={disabled || loading} onClick={onRemove}>
-              Quitar
-            </Button>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
+        <strong style={{ color: "#111827" }}>
+  {label}
+</strong>
+
+<p style={{ color: "#475467" }}>
+  {description}
+</p>
+
+<div className="branding-image-actions">
+  <input
+    ref={inputRef}
+    hidden
+    type="file"
+    accept="image/png,image/jpeg,image/webp"
+    onChange={onChange}
+  />
+
+  <Button
+    type="button"
+    size="sm"
+    variant="secondary"
+    loading={loading}
+    disabled={disabled}
+    style={{
+      color: "#111827",
+      background: "#ffffff",
+    }}
+    onClick={() => inputRef.current?.click()}
+  >
+    {shown ? "Reemplazar" : "Seleccionar imagen"}
+  </Button>
+
+  {shown && onRemove && (
+    <Button
+      type="button"
+      size="sm"
+      variant="ghost"
+      disabled={disabled || loading}
+      style={{ color: "#111827" }}
+      onClick={onRemove}
+    >
+      Quitar
+    </Button>
+  )}
+</div>
