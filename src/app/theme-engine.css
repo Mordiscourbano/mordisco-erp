@@ -144,3 +144,23 @@
     height: 34px;
   }
 }
+.logout-button {
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111827 !important;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #f3f4f6;
+  color: #111827 !important;
+}
+
+.logout-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
