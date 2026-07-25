@@ -264,3 +264,32 @@
   opacity: 0.65 !important;
   cursor: not-allowed !important;
 }
+/* Botones blancos: texto oscuro en cualquier tema */
+
+.brand-runtime .ui-button-secondary,
+.brand-runtime .ui-button-ghost,
+.brand-runtime button.secondary,
+.brand-runtime .btn-secondary,
+.brand-runtime button[style*="background: #ffffff"],
+.brand-runtime button[style*="background:#ffffff"],
+.brand-runtime button[style*="background: white"],
+.brand-runtime button[style*="background:white"] {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+.brand-runtime .ui-button-secondary *,
+.brand-runtime .ui-button-ghost *,
+.brand-runtime button.secondary *,
+.brand-runtime .btn-secondary * {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+.brand-runtime .ui-button-secondary:hover,
+.brand-runtime .ui-button-ghost:hover,
+.brand-runtime button.secondary:hover,
+.brand-runtime .btn-secondary:hover {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
