@@ -56,6 +56,8 @@ export function ImageUploadField({
       <div className="branding-image-copy">
         <strong style={{ color: "#111827" }}>
   {label}
+<strong style={{ color: "#111827" }}>
+  {label}
 </strong>
 
 <p style={{ color: "#475467" }}>
@@ -99,3 +101,7 @@ export function ImageUploadField({
     </Button>
   )}
 </div>
+</div>
+</section>
+);
+}
