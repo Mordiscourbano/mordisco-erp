@@ -55,3 +55,19 @@
 .branding-image-field .ui-button-ghost:hover {
   color: #111827 !important;
 }
+.brand-runtime.brand-theme-dark .branding-image-field,
+.brand-runtime.brand-theme-dark .branding-image-field strong,
+.brand-runtime.brand-theme-dark .branding-image-field p,
+.brand-runtime.brand-theme-dark .branding-image-field span {
+  color: #111827 !important;
+}
+
+.brand-runtime.brand-theme-dark .branding-image-field .ui-button-secondary,
+.brand-runtime.brand-theme-dark .branding-image-field .ui-button-ghost {
+  color: #111827 !important;
+}
+
+.brand-runtime.brand-theme-dark .branding-image-field .ui-button-secondary:hover,
+.brand-runtime.brand-theme-dark .branding-image-field .ui-button-ghost:hover {
+  color: #111827 !important;
+}
