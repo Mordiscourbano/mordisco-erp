@@ -2,6 +2,7 @@ import "./globals.css";
 import "./design-system.css";
 import "./ui.css";
 import "./branding-settings.css";
+import "./brand-color-editor.css";
 import "./theme-engine.css";
 
 import { AppShell } from "@/components/app-shell";
