@@ -192,7 +192,15 @@ function updateColors(colors: BrandColors) {
                   <option>Inter</option><option>Roboto</option><option>Poppins</option><option>Montserrat</option>
                 </Select>
               </div>
-              <div style={{ marginTop: 24 }}>
+              <div className="brand-color-section">
+  <div className="brand-color-section-heading">
+    <h3>Colores de marca</h3>
+    <p>
+      Los cambios se ven inmediatamente.
+      Guardalos para conservarlos.
+    </p>
+  </div>
+
   <BrandColorEditor
     value={currentColors}
     onChange={updateColors}
