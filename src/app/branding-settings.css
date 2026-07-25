@@ -36,3 +36,22 @@
 @media(max-width:1120px){.branding-settings-layout{grid-template-columns:1fr}.branding-preview-column{order:-1}.branding-preview-sticky{position:static}.branding-preview{height:380px;grid-template-columns:64px minmax(0,1fr)}.branding-preview-content main section{height:120px}}
 @media(max-width:760px){.branding-upload-grid,.branding-colors-grid{grid-template-columns:1fr}.branding-image-field{grid-template-columns:86px 1fr}.branding-image-preview{width:86px;height:86px}.branding-preview-column{display:none}.branding-mobile-save{display:block;position:sticky;bottom:76px;z-index:10;padding:10px;border:1px solid #e4e7ec;border-radius:14px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px)}}
 @media(max-width:480px){.branding-image-field{grid-template-columns:1fr}.branding-image-preview{width:100%;height:150px}}
+.branding-image-field {
+  color: #111827;
+}
+
+.branding-image-field strong,
+.branding-image-field p,
+.branding-image-field span {
+  color: #111827;
+}
+
+.branding-image-field .ui-button-secondary,
+.branding-image-field .ui-button-ghost {
+  color: #111827 !important;
+}
+
+.branding-image-field .ui-button-secondary:hover,
+.branding-image-field .ui-button-ghost:hover {
+  color: #111827 !important;
+}
