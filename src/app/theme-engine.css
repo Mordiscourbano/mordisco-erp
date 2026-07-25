@@ -214,3 +214,27 @@
   background: #f3f4f6 !important;
   color: #111827 !important;
 }
+.topbar .logout-button,
+.topbar-actions .logout-button,
+.brand-runtime .topbar .logout-button,
+.brand-runtime .topbar-actions .logout-button {
+  min-height: 38px !important;
+  padding: 8px 16px !important;
+  border: 1px solid #d0d5dd !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  opacity: 1 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.topbar .logout-button:hover,
+.topbar-actions .logout-button:hover,
+.brand-runtime .topbar .logout-button:hover,
+.brand-runtime .topbar-actions .logout-button:hover {
+  background: #f3f4f6 !important;
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
