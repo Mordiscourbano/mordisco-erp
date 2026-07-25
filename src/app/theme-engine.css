@@ -144,3 +144,73 @@
     height: 34px;
   }
 }
+/* Corrección de tema oscuro para módulos del ERP */
+
+.brand-runtime.brand-theme-dark .content-area,
+.brand-runtime.brand-theme-dark .page-content {
+  background: rgba(17, 19, 24, 0.92) !important;
+  color: #f5f7fa !important;
+}
+
+.brand-runtime.brand-theme-dark .panel,
+.brand-runtime.brand-theme-dark .card,
+.brand-runtime.brand-theme-dark .ui-card,
+.brand-runtime.brand-theme-dark .ui-stat-card,
+.brand-runtime.brand-theme-dark .pos-panel,
+.brand-runtime.brand-theme-dark .pos-products,
+.brand-runtime.brand-theme-dark .pos-order,
+.brand-runtime.brand-theme-dark article,
+.brand-runtime.brand-theme-dark section {
+  border-color: #30343d !important;
+  background-color: #1b1e25 !important;
+  color: #f5f7fa !important;
+}
+
+.brand-runtime.brand-theme-dark input,
+.brand-runtime.brand-theme-dark select,
+.brand-runtime.brand-theme-dark textarea {
+  border-color: #3b404b !important;
+  background-color: #15181e !important;
+  color: #f5f7fa !important;
+}
+
+.brand-runtime.brand-theme-dark input::placeholder,
+.brand-runtime.brand-theme-dark textarea::placeholder {
+  color: #8f96a3 !important;
+}
+
+/* Tarjetas de productos del POS */
+
+.brand-runtime.brand-theme-dark .product-card,
+.brand-runtime.brand-theme-dark .pos-product-card {
+  border-color: #30343d !important;
+  background: #22262e !important;
+  color: #f5f7fa !important;
+}
+
+.brand-runtime.brand-theme-dark .product-card small,
+.brand-runtime.brand-theme-dark .pos-product-card small {
+  color: #a3aab8 !important;
+}
+
+/* Recuperar diseño del botón Cerrar sesión */
+
+.brand-runtime .topbar-actions .logout-button {
+  min-height: 38px !important;
+  padding: 8px 15px !important;
+  border: 1px solid #d0d5dd !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  color: #111827 !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  appearance: none !important;
+}
+
+.brand-runtime .topbar-actions .logout-button:hover {
+  background: #f3f4f6 !important;
+  color: #111827 !important;
+}
