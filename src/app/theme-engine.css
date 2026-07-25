@@ -40,3 +40,46 @@
   background: var(--brand-primary);
   color: var(--brand-secondary);
 }
+/* Corrección definitiva del modo oscuro */
+
+html body .brand-runtime.brand-theme-dark .topbar {
+  background: rgba(27, 30, 37, 0.96) !important;
+  border-bottom-color: #30343d !important;
+  color: #f5f7fa !important;
+}
+
+html body .brand-runtime.brand-theme-dark .content-area {
+  background: rgba(17, 19, 24, 0.92) !important;
+  color: #f5f7fa !important;
+}
+
+html body .brand-runtime.brand-theme-dark .ui-card,
+html body .brand-runtime.brand-theme-dark .panel,
+html body .brand-runtime.brand-theme-dark .card,
+html body .brand-runtime.brand-theme-dark .ui-stat-card {
+  background: #1b1e25 !important;
+  border-color: #30343d !important;
+  color: #f5f7fa !important;
+}
+
+html body .brand-runtime.brand-theme-dark input,
+html body .brand-runtime.brand-theme-dark select,
+html body .brand-runtime.brand-theme-dark textarea {
+  background: #15181e !important;
+  border-color: #3b404b !important;
+  color: #f5f7fa !important;
+}
+html body .brand-runtime .topbar-actions .logout-button {
+  min-height: 38px !important;
+  padding: 8px 16px !important;
+  border: 1px solid #d0d5dd !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  appearance: none !important;
+}
+
+html body .brand-runtime .topbar-actions .logout-button-label {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  font-weight: 700 !important;
+}
