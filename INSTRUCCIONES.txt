@@ -1,0 +1,14 @@
+MORDISCO ERP — SPRINT 10.3.5 PWA
+
+1. Cerrá el archivo pwa-provider.tsx en Visual Studio Code.
+2. Descomprimí este ZIP.
+3. Copiá TODO lo que está dentro de la carpeta descomprimida.
+4. Pegalo dentro de tu carpeta local:
+   C:\Users\Marcos\Documents\GitHub\mordisco-erp
+5. Cuando Windows pregunte, elegí "Reemplazar los archivos en el destino".
+6. No borres ninguna otra carpeta del proyecto.
+7. Abrí GitHub Desktop: deberá mostrar los archivos nuevos y layout.tsx modificado.
+8. Commit sugerido: Sprint 10.3.5: integrar app movil PWA
+9. Push origin.
+
+No requiere SQL ni cambios en Supabase.

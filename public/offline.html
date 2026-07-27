@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111318" />
+    <title>Sin conexión · Mordisco ERP</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: #111318;
+        color: #f6f7f9;
+        font-family: Inter, system-ui, sans-serif;
+        text-align: center;
+      }
+      main { max-width: 460px; }
+      img { width: 96px; height: 96px; border-radius: 24px; }
+      h1 { margin: 24px 0 10px; }
+      p { margin: 0; color: #aab1be; line-height: 1.6; }
+      button {
+        margin-top: 22px;
+        padding: 11px 18px;
+        border: 0;
+        border-radius: 11px;
+        background: #f4b400;
+        color: #111827;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/icons/icon-192.png" alt="Mordisco ERP" />
+      <h1>Sin conexión</h1>
+      <p>
+        No pudimos conectar con Mordisco ERP. Revisá la conexión del teléfono e
+        intentá nuevamente.
+      </p>
+      <button type="button" onclick="window.location.reload()">Reintentar</button>
+    </main>
+  </body>
+</html>

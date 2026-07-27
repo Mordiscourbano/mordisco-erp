@@ -3,20 +3,45 @@ import "./design-system.css";
 import "./ui.css";
 import "./branding-settings.css";
 import "./brand-color-editor.css";
+import "./pwa.css";
 import "./theme-engine.css";
+
+import type { Metadata, Viewport } from "next";
 
 import { AppShell } from "@/components/app-shell";
 import {
   ThemeProvider,
   type RuntimeBranding,
 } from "@/components/branding/theme-provider";
+import { PWAProvider } from "@/components/pwa/pwa-provider";
 import { createClient } from "@/lib/supabase/server";
 import { createSignedAssetUrl } from "@/lib/settings/media";
 import type { BusinessSettings } from "@/lib/settings/types";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Mordisco ERP",
   description: "Gestión gastronómica integral",
+  applicationName: "Mordisco ERP",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Mordisco ERP",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F4B400" },
+    { media: "(prefers-color-scheme: dark)", color: "#111318" },
+  ],
 };
 
 const fallbackBranding: RuntimeBranding = {
@@ -82,6 +107,7 @@ export default async function Layout({
       <body>
         <ThemeProvider branding={branding}>
           <AppShell branding={branding}>{children}</AppShell>
+          <PWAProvider />
         </ThemeProvider>
       </body>
     </html>
