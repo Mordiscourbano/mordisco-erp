@@ -1,16 +1,52 @@
 import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
-export async function proxy(request:NextRequest){
-  let response=NextResponse.next({request});
-  const supabase=createServerClient(
+import { NextRequest, NextResponse } from "next/server";
+
+export async function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Rutas públicas necesarias para la PWA
+  if (
+    pathname === "/manifest.webmanifest" ||
+    pathname === "/sw.js" ||
+    pathname === "/favicon.ico" ||
+    pathname.startsWith("/icons/") ||
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/login")
+  ) {
+    return NextResponse.next();
+  }
+
+  let response = NextResponse.next();
+
+  const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {cookies:{getAll:()=>request.cookies.getAll(),setAll(items){items.forEach(({name,value})=>request.cookies.set(name,value));response=NextResponse.next({request});items.forEach(({name,value,options})=>response.cookies.set(name,value,options));}}}
+    {
+      cookies: {
+        getAll: () => request.cookies.getAll(),
+        setAll: (cookies) => {
+          cookies.forEach(({ name, value, options }) => {
+            request.cookies.set(name, value);
+            response.cookies.set(name, value, options);
+          });
+        },
+      },
+    }
   );
-  const {data:{user}}=await supabase.auth.getUser();
-  const path=request.nextUrl.pathname;
-  if(!user&&!path.startsWith('/login')){const url=request.nextUrl.clone();url.pathname='/login';return NextResponse.redirect(url)}
-  if(user&&path.startsWith('/login')){const url=request.nextUrl.clone();url.pathname='/';return NextResponse.redirect(url)}
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
+
   return response;
 }
-export const config={matcher:["/((?!_next/static|_next/image|favicon.ico).*)"]};
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
